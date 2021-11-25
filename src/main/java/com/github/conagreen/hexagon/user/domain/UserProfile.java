@@ -19,5 +19,7 @@ public class UserProfile {
         this.bio = bio;
     }
 
-//    public static UserProfile create();
+    public static UserProfile create(Nickname nickname, Email email, String imageUrl, String bio) {
+        return new UserProfile(nickname, email, imageUrl, bio);
+    }
 }
