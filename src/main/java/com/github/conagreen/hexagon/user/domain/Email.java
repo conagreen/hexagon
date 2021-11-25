@@ -30,7 +30,7 @@ public class Email {
 
         final String[] idAndHost = email.split("@");
         final String id = idAndHost[0];
-        if (!EMAIL_ID_PATTERN.matcher(email).matches()) {
+        if (!EMAIL_ID_PATTERN.matcher(id).matches()) {
             throw new IllegalArgumentException("Malformed email");
         }
     }
