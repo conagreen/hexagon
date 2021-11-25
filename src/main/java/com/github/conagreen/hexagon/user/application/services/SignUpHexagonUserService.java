@@ -9,7 +9,9 @@ import com.github.conagreen.hexagon.user.domain.Email;
 import com.github.conagreen.hexagon.user.domain.HexagonUser;
 import com.github.conagreen.hexagon.user.domain.Nickname;
 import com.github.conagreen.hexagon.user.domain.UserProfile;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SignUpHexagonUserService implements SignUpHexagonUserUseCase {
 
     private final LoadHexagonUserPort loadHexagonUserPort;
