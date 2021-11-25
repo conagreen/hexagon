@@ -8,7 +8,7 @@ import lombok.ToString;
 public class UserProfile {
 
     private final Nickname nickname;
-    public final Email email;
+    private final Email email;
     private final String imageUrl;
     private final String bio;
 
