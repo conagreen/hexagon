@@ -25,8 +25,8 @@ public class SignUpHexagonUserService implements SignUpHexagonUserUseCase {
     @Override
     public void execute(SignUpHexagonUserCommand command) {
         final Email email = new Email(command.getEmail());
-        final HexagonUser maybeuser = loadHexagonUserPort.loadByEmail(email);
-        checkEmailAlreadyExists(maybeuser);
+        final HexagonUser maybeUser = loadHexagonUserPort.loadByEmail(email);
+        checkEmailAlreadyExists(maybeUser);
 
         final HexagonUser newUser = HexagonUser.createNewUser(
                 UserProfile.create(
@@ -40,8 +40,8 @@ public class SignUpHexagonUserService implements SignUpHexagonUserUseCase {
         saveHexagonUserPort.save(newUser);
     }
 
-    private void checkEmailAlreadyExists(HexagonUser maybeuser) {
-        if (maybeuser != null) {
+    private void checkEmailAlreadyExists(HexagonUser maybeUser) {
+        if (maybeUser != null) {
             throw new EmailAlreadyTakenException("Email already taken.");
         }
     }
