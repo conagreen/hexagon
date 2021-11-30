@@ -11,7 +11,7 @@ class NicknameTest {
     @DisplayName("닉네임이 제약조건을 만족하는 경우 어떠한 예외도 발생하지 않음")
     @Test
     void testCorrectNickname() {
-        assertDoesNotThrow(() -> new Nickname("닉네임"));
+        assertDoesNotThrow(() -> new Nickname("핵사고날"));
     }
 
     @DisplayName("닉네임이 null인 경우 IllegalArgumentException 발생")
