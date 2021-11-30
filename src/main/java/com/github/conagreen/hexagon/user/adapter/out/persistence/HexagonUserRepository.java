@@ -11,4 +11,6 @@ public interface HexagonUserRepository {
     HexagonUser findById(HexagonUserId hexagonUserId);
 
     void save(HexagonUser hexagonUser);
+
+    HexagonUser update(HexagonUser hexagonUser);
 }

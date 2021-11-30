@@ -3,11 +3,13 @@ package com.github.conagreen.hexagon.user.adapter.out.persistence;
 import com.github.conagreen.hexagon.user.domain.Email;
 import com.github.conagreen.hexagon.user.domain.HexagonUser;
 import com.github.conagreen.hexagon.user.domain.HexagonUserId;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Component
 public class InmemoryHexagonUserRepository implements HexagonUserRepository {
 
@@ -31,5 +33,10 @@ public class InmemoryHexagonUserRepository implements HexagonUserRepository {
     @Override
     public void save(HexagonUser hexagonUser) {
         dataStore.put(hexagonUser.getUserProfile().getEmail(), hexagonUser);
+    }
+
+    @Override
+    public HexagonUser update(HexagonUser hexagonUser) {
+        return dataStore.put(hexagonUser.getUserProfile().getEmail(), hexagonUser);
     }
 }

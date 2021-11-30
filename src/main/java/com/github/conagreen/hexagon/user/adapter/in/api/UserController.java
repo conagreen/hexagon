@@ -11,10 +11,12 @@ public class UserController {
 
     private final SignUpHexagonUserUseCase signUpHexagonUserUseCase;
     private final SearchHexagonUserUseCase searchHexagonUserUseCase;
+    private final UpdateHexagonUserUseCase updateHexagonUserUseCase;
 
-    public UserController(SignUpHexagonUserUseCase signUpHexagonUserUseCase, SearchHexagonUserUseCase searchHexagonUserUseCase) {
+    public UserController(SignUpHexagonUserUseCase signUpHexagonUserUseCase, SearchHexagonUserUseCase searchHexagonUserUseCase, UpdateHexagonUserUseCase updateHexagonUserUseCase) {
         this.signUpHexagonUserUseCase = signUpHexagonUserUseCase;
         this.searchHexagonUserUseCase = searchHexagonUserUseCase;
+        this.updateHexagonUserUseCase = updateHexagonUserUseCase;
     }
 
     @PostMapping
@@ -41,6 +43,22 @@ public class UserController {
                 queryResult.getHexagonUserId(),
                 queryResult.getNickname(),
                 queryResult.getEmail()
+        );
+    }
+
+    @PutMapping("/{userId}")
+    public UpdateHexagonUserResponse updateUser(@PathVariable String userId, @RequestBody UserUpdateParameter body) {
+        log.info("유저 정보 수정 요청 (수정 대상 userId : {})", userId);
+        final UpdateHexagonUserResult queryResult = updateHexagonUserUseCase.execute(
+                new UpdateHexagonUserCommand(
+                        userId,
+                        body.getNickname(),
+                        body.getProfileImageUrl(),
+                        body.getBio())
+        );
+
+        return new UpdateHexagonUserResponse(
+                queryResult.getUserId()
         );
     }
 }

@@ -1,5 +1,6 @@
 package com.github.conagreen.hexagon.user.domain;
 
+import com.github.conagreen.hexagon.user.application.port.in.UpdateHexagonUserCommand;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -30,5 +31,9 @@ public class HexagonUser {
     public static HexagonUser createNewUser(UserProfile userProfile) {
         final LocalDateTime now = LocalDateTime.now();
         return new HexagonUser(new HexagonUserId(), userProfile, now, now);
+    }
+
+    public void update(UpdateHexagonUserCommand command) {
+        userProfile.update(command);
     }
 }
