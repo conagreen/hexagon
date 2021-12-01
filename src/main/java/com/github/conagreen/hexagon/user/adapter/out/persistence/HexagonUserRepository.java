@@ -12,5 +12,7 @@ public interface HexagonUserRepository {
 
     void save(HexagonUser hexagonUser);
 
-    HexagonUser update(HexagonUser hexagonUser);
+    void update(HexagonUser hexagonUser);
+
+    void delete(HexagonUser hexagonUser);
 }

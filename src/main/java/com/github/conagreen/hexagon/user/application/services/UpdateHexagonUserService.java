@@ -27,10 +27,10 @@ public class UpdateHexagonUserService implements UpdateHexagonUserUseCase {
 
         foundUser.update(command);
 
-        final HexagonUser updatedUser = updateHexagonUserPort.update(foundUser);
+        updateHexagonUserPort.update(foundUser);
 
         return new UpdateHexagonUserResult(
-                updatedUser.getUserId().getId()
+                foundUser.getUserId().getId()
         );
     }
 }

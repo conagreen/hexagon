@@ -36,7 +36,12 @@ public class InmemoryHexagonUserRepository implements HexagonUserRepository {
     }
 
     @Override
-    public HexagonUser update(HexagonUser hexagonUser) {
-        return dataStore.put(hexagonUser.getUserProfile().getEmail(), hexagonUser);
+    public void update(HexagonUser hexagonUser) {
+        dataStore.put(hexagonUser.getUserProfile().getEmail(), hexagonUser);
+    }
+
+    @Override
+    public void delete(HexagonUser hexagonUser) {
+        dataStore.remove(hexagonUser.getUserProfile().getEmail());
     }
 }

@@ -1,23 +1,20 @@
 package com.github.conagreen.hexagon.user.adapter.in.api;
 
 import com.github.conagreen.hexagon.user.application.port.in.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
+@RestController
 public class UserController {
 
     private final SignUpHexagonUserUseCase signUpHexagonUserUseCase;
     private final SearchHexagonUserUseCase searchHexagonUserUseCase;
     private final UpdateHexagonUserUseCase updateHexagonUserUseCase;
-
-    public UserController(SignUpHexagonUserUseCase signUpHexagonUserUseCase, SearchHexagonUserUseCase searchHexagonUserUseCase, UpdateHexagonUserUseCase updateHexagonUserUseCase) {
-        this.signUpHexagonUserUseCase = signUpHexagonUserUseCase;
-        this.searchHexagonUserUseCase = searchHexagonUserUseCase;
-        this.updateHexagonUserUseCase = updateHexagonUserUseCase;
-    }
+    private final LeaveHexagonServiceUseCase leaveHexagonServiceUseCase;
 
     @PostMapping
     public SignUpHexagonUserResponse signUp(@RequestBody UserSignUpParameter body) {
@@ -64,6 +61,16 @@ public class UserController {
 
         return new UpdateHexagonUserResponse(
                 result.getUserId()
+        );
+    }
+
+    @DeleteMapping("/{userId}")
+    public LeaveHexagonServiceResponse withdraw(@PathVariable String userId) {
+        log.info("서비스 탈퇴 요청 (삭제 대상 userId : {})", userId);
+        final LeaveHexagonServiceResult result = leaveHexagonServiceUseCase.execute(userId);
+        return new LeaveHexagonServiceResponse(
+                result.getUserId(),
+                result.getEmail()
         );
     }
 }

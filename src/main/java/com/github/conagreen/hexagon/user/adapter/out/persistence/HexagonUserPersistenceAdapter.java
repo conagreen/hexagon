@@ -1,5 +1,6 @@
 package com.github.conagreen.hexagon.user.adapter.out.persistence;
 
+import com.github.conagreen.hexagon.user.application.port.out.DeleteHexagonUserPort;
 import com.github.conagreen.hexagon.user.application.port.out.LoadHexagonUserPort;
 import com.github.conagreen.hexagon.user.application.port.out.SaveHexagonUserPort;
 import com.github.conagreen.hexagon.user.application.port.out.UpdateHexagonUserPort;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class HexagonUserPersistenceAdapter implements SaveHexagonUserPort, LoadHexagonUserPort, UpdateHexagonUserPort {
+public class HexagonUserPersistenceAdapter implements SaveHexagonUserPort, LoadHexagonUserPort, UpdateHexagonUserPort, DeleteHexagonUserPort {
 
     private final HexagonUserRepository hexagonUserRepository;
 
@@ -31,7 +32,12 @@ public class HexagonUserPersistenceAdapter implements SaveHexagonUserPort, LoadH
     }
 
     @Override
-    public HexagonUser update(HexagonUser hexagonUser) {
-        return hexagonUserRepository.update(hexagonUser);
+    public void update(HexagonUser hexagonUser) {
+        hexagonUserRepository.update(hexagonUser);
+    }
+
+    @Override
+    public void delete(HexagonUser hexagonUser) {
+        hexagonUserRepository.delete(hexagonUser);
     }
 }
