@@ -1,5 +1,6 @@
 package com.github.conagreen.hexagon.user.application.services;
 
+import com.github.conagreen.hexagon.user.application.port.in.LeaveHexagonServiceCommand;
 import com.github.conagreen.hexagon.user.application.port.in.LeaveHexagonServiceResult;
 import com.github.conagreen.hexagon.user.application.port.in.LeaveHexagonServiceUseCase;
 import com.github.conagreen.hexagon.user.application.port.out.DeleteHexagonUserPort;
@@ -17,8 +18,8 @@ public class LeaveHexagonServiceService implements LeaveHexagonServiceUseCase {
     private final DeleteHexagonUserPort deleteHexagonUserPort;
 
     @Override
-    public LeaveHexagonServiceResult execute(String userId) {
-        final HexagonUser foundUser = loadHexagonUserPort.loadById(new HexagonUserId(userId));
+    public LeaveHexagonServiceResult execute(LeaveHexagonServiceCommand command) {
+        final HexagonUser foundUser = loadHexagonUserPort.loadById(new HexagonUserId(command.userId));
         deleteHexagonUserPort.delete(foundUser);
 
         return new LeaveHexagonServiceResult(

@@ -67,7 +67,9 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public LeaveHexagonServiceResponse withdraw(@PathVariable String userId) {
         log.info("서비스 탈퇴 요청 (삭제 대상 userId : {})", userId);
-        final LeaveHexagonServiceResult result = leaveHexagonServiceUseCase.execute(userId);
+        final LeaveHexagonServiceResult result = leaveHexagonServiceUseCase.execute(
+                new LeaveHexagonServiceCommand(userId)
+        );
         return new LeaveHexagonServiceResponse(
                 result.getUserId(),
                 result.getEmail()
