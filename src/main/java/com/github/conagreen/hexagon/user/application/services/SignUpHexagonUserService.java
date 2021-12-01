@@ -2,6 +2,7 @@ package com.github.conagreen.hexagon.user.application.services;
 
 import com.github.conagreen.hexagon.user.application.port.in.EmailAlreadyTakenException;
 import com.github.conagreen.hexagon.user.application.port.in.SignUpHexagonUserCommand;
+import com.github.conagreen.hexagon.user.application.port.in.SignUpHexagonUserResult;
 import com.github.conagreen.hexagon.user.application.port.in.SignUpHexagonUserUseCase;
 import com.github.conagreen.hexagon.user.application.port.out.LoadHexagonUserPort;
 import com.github.conagreen.hexagon.user.application.port.out.SaveHexagonUserPort;
@@ -25,7 +26,7 @@ public class SignUpHexagonUserService implements SignUpHexagonUserUseCase {
     }
 
     @Override
-    public void execute(SignUpHexagonUserCommand command) {
+    public SignUpHexagonUserResult execute(SignUpHexagonUserCommand command) {
         final Email email = new Email(command.getEmail());
         final HexagonUser maybeUser = loadHexagonUserPort.loadByEmail(email);
         checkEmailAlreadyExists(maybeUser);
@@ -40,6 +41,9 @@ public class SignUpHexagonUserService implements SignUpHexagonUserUseCase {
         );
 
         saveHexagonUserPort.save(newUser);
+        return  new SignUpHexagonUserResult(
+                newUser.getUserId().getId(),
+                newUser.getUserProfile().getNickname().getNickname());
     }
 
     private void checkEmailAlreadyExists(HexagonUser maybeUser) {
